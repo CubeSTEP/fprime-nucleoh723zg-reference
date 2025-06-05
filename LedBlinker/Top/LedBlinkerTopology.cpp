@@ -11,6 +11,8 @@
 #include <Fw/Types/MallocAllocator.hpp>
 #include <Svc/FramingProtocol/FprimeProtocol.hpp>
 
+#include <Fw/Logger/Logger.hpp>
+
 // Allows easy reference to objects in FPP/autocoder required namespaces
 using namespace LedBlinker;
 
@@ -62,9 +64,12 @@ void configureTopology() {
     framer.setup(framing);
     deframer.setup(deframing);
 
+
     // Configure built-in LED GPIO if available
 #ifndef NO_ONBOARD_LED
-    gpioDriver.open(Arduino::DEF_LED_BUILTIN, Arduino::GpioDriver::GpioDirection::OUT);
+Fw::Logger::log("Setting GPIO Pin\n");
+    gpioDriver.open(103, Arduino::GpioDriver::GpioDirection::OUT);
+    // led.init(InstanceIds::LedBlinker_led);
 #endif
 }
 
@@ -89,6 +94,8 @@ void setupTopology(const TopologyState& state) {
     rateDriver.configure(1);
     commDriver.configure(&Serial);
     rateDriver.start();
+
+    Fw::Logger::log("Topology set\n");
 }
 
 void teardownTopology(const TopologyState& state) {

@@ -36,12 +36,14 @@ namespace Components {
       void parameterUpdated(FwPrmIdType id /*!< The parameter ID*/
       );
 
+      // void init(NATIVE_INT_TYPE instanceId);
+
     PRIVATE:
 
       // ----------------------------------------------------------------------
       // Handler implementations for user-defined typed input ports
       // ----------------------------------------------------------------------
-
+      
       //! Handler implementation for run
       //!
       void run_handler(

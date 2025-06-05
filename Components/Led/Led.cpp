@@ -3,10 +3,14 @@
 // \author ethanchee
 // \brief  cpp file for Led component implementation class
 // ======================================================================
+// #include <Arduino.h>
+// #undef HIGH
+// #undef LOW
+// #undef DEFAULT
 
 #include <Components/Led/Led.hpp>
 #include <FpConfig.hpp>
-
+#include <Fw/Logger/Logger.hpp>
 namespace Components {
 
 // ----------------------------------------------------------------------
@@ -14,7 +18,7 @@ namespace Components {
 // ----------------------------------------------------------------------
 
 Led ::Led(const char* const compName)
-    : LedComponentBase(compName), state(Fw::On::OFF), transitions(0), count(0), blinking(true) {}
+    : LedComponentBase(compName), state(Fw::On::OFF), transitions(0), count(0), blinking(true) { }
 
 Led ::~Led() {}
 
@@ -36,8 +40,19 @@ void Led ::parameterUpdated(FwPrmIdType id) {
 // Handler implementations for user-defined typed input ports
 // ----------------------------------------------------------------------
 
+// void Led::init(NATIVE_INT_TYPE instanceId) {
+//     if (this->isConnected_gpioSet_OutputPort(0)) {
+//             this->gpioSet_out(0, Fw::Logic::HIGH);
+//             this->log_ACTIVITY_LO_LedState(Fw::On::ON);
+//             Fw::Logger::log("LED turned ON at startup\n");
+//         } else {
+//             Fw::Logger::log("LED GPIO port not connected\n");
+//         }
+// }
+
 void Led ::run_handler(const NATIVE_INT_TYPE portNum, NATIVE_UINT_TYPE context) {
     // Read back the parameter value
+    Fw::Logger::log("Run Handler\n");
     Fw::ParamValid isValid;
     U32 interval = this->paramGet_BLINK_INTERVAL(isValid);
 
