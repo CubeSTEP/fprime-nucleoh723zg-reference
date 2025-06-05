@@ -59,6 +59,8 @@ fprime-util build -j4
 
 ```sh
 # In fprime-nucleoh723zg-reference
+
+# MacOS
 sh ~/Library/Arduino15/packages/STMicroelectronics/tools/STM32Tools/2.3.0/stm32CubeProg.sh -i swd -f ./build-artifacts/nucleo_H723ZG/LedBlinker/bin/LedBlinker.elf.hex -c /dev/cu.usbmodem141203 
 ```
 
