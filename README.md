@@ -29,6 +29,7 @@ fprime-bootstrap clone https://github.com/CubeSTEP/fprime-nucleoh723zg-reference
 
 2. Navigate into the GitHub repsitory and activate the virtual environment
 ```sh
+# In fprime-nucleoh723zg-reference
 source fprime-venv/bin/activate
 ```
 
@@ -39,29 +40,37 @@ source fprime-venv/bin/activate
 
 4. Install the following modules
 ```sh
+# In fprime-nucleoh723zg-reference
 pip install setuptools
 pip install legacy-cgi
 ```
 
 5. Run the following commands to generate and build the deployment
 ```sh
+# In fprime-nucleoh723zg-reference
 fprime-util generate
 fprime-util build -j4
 ```
 
-6. Flash board using this file path:
+6. Flash board using the `.hex` file found here:
 ```
 ./build-artifacts/nucleo_H723ZG/LedBlinker/bin/LedBlinker.elf.hex
 ```
 
-> [!NOTE]
-> The board can be flashed with ST-LINK. STM32CubeProgrammer provides a UI to flash the board.
+```sh
+# In fprime-nucleoh723zg-reference
+sh ~/Library/Arduino15/packages/STMicroelectronics/tools/STM32Tools/2.3.0/stm32CubeProg.sh -i swd -f ./build-artifacts/nucleo_H723ZG/LedBlinker/bin/LedBlinker.elf.hex -c /dev/cu.usbmodem141203 
+```
 
 > [!NOTE]
-> Still need to find a way to flash the board through the CLI.
+> `/dev/cu.usbmodem141203` might need to be replaced with the correct port. On macOS, this can be done by running the following command: `ls -l /dev/cu.usb*`
+
+> [!NOTE]
+> The STM32CubeProgrammer UI can also be used to flash the board.
 
 7. Run `fprime-gds`
-```
+```sh
+# In fprime-nucleoh723zg-reference
 fprime-gds -n --dictionary ./build-artifacts/nucleo_H723ZG/LedBlinker/dict/LedBlinkerTopologyDictionary.json --communication-selection uart --uart-device /dev/cu.usbmodem141203 --uart-baud 115200
 ```
 
